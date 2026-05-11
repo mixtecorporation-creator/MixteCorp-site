@@ -5,7 +5,7 @@ const apps = [
     name: 'RoleChat',
     description: 'RoleChat — A mobile app for chatting with AI characters. Users can create customizable characters with avatars, personalities, and greetings, chat with them in real-time, follow favorite creators, rate characters, send images and voice messages, and discover new characters. IT is really fun and deserves a try.',
     icon: '/logo.png',
-    link: '/app-release.apk',
+    link: 'https://github.com/mixtecorporation-creator/MixteCorp-site/releases/download/0.1.0/app-release.apk',
     isPlaceholder: false,
   },
   {
@@ -42,7 +42,7 @@ export default function Apps() {
             </div>
             <h3 className="app-name">{app.name}</h3>
             <p className="app-description">{app.description}</p>
-            <a href={app.link} className="app-link" download={app.name === 'RoleChat' ? 'app-release.apk' : undefined}>
+            <a href={app.link} className="app-link" target="_blank" rel="noopener noreferrer">
               {app.name === 'RoleChat' ? 'Download APK →' : 'Get Notified →'}
             </a>
           </div>
