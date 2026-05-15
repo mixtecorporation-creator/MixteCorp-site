@@ -2,6 +2,7 @@ import Navigation from './components/Navigation'
 import Hero from './components/Hero'
 import Apps from './components/Apps'
 import About from './components/About'
+import Team from './components/Team'
 import Hiring from './components/Hiring'
 import Footer from './components/Footer'
 import BackToTop from './components/BackToTop'
@@ -45,6 +46,7 @@ export default function Home() {
           <Hero />
           <Apps />
           <About />
+          <Team />
           <Hiring />
           <Footer />
         </div>

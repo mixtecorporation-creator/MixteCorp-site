@@ -31,18 +31,10 @@ export default function Footer() {
           <h4>Contact</h4>
           <ul>
             <li><a href="mailto:mixtecorporation@gmail.com">Email Us</a></li>
-            <li><a href="mailto:careers@mixtecorporation.com">Careers</a></li>
+            <li><a href="mailto:mixtecorporation@gmail.com">Careers</a></li>
           </ul>
         </div>
 
-        <div className="footer-newsletter">
-          <h4>Stay Updated</h4>
-          <p>Get notified about new apps and updates.</p>
-          <form className="newsletter-form" onSubmit={(e) => e.preventDefault()}>
-            <input type="email" placeholder="your@email.com" required />
-            <button type="submit">Subscribe</button>
-          </form>
-        </div>
       </div>
 
       <div className="footer-bottom">

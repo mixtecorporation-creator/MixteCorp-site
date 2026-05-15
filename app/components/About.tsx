@@ -11,7 +11,7 @@ export default function About() {
         <div className="section-line"></div>
       </div>
 
-      <div className="about-content">
+      <div className="about-split">
         <div className="about-text animate-on-scroll">
           <h3>Who We Are</h3>
           <p>
@@ -29,20 +29,9 @@ export default function About() {
             experiences that users love and remember.
           </p>
         </div>
-        
-        <div className="contact-sections">
-          <div className="contact-content animate-on-scroll" id="contact">
-            <h3>Connect With Us</h3>
-            <p>
-              Reach out for collaborations, partnerships, or just to say hello. 
-              We&apos;re always excited to connect with fellow creators and innovators.
-            </p>
-            <a href="mailto:mixtecorporation@gmail.com" className="contact-email">mixtecorporation@gmail.com</a>
-          </div>
-        </div>
-      </div>
 
-      <ContactForm />
+        <ContactForm />
+      </div>
     </section>
   )
 }

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { createClient } from '@/lib/supabase/client'
 
 type Role = 'frontend' | 'backend' | 'fullstack'
 type Tech = 'flutter' | 'reactnative' | 'python' | 'javascript' | 'other'
@@ -299,6 +300,33 @@ export default function Hiring() {
   const [step, setStep] = useState<1 | 2 | 3>(1)
   const [currentRole, setCurrentRole] = useState<Role | ''>('')
   const [currentTech, setCurrentTech] = useState<Tech | ''>('')
+  const supabase = createClient()
+  const [applying, setApplying] = useState(false)
+  const [applied, setApplied] = useState(false)
+  const [appName, setAppName] = useState('')
+  const [appEmail, setAppEmail] = useState('')
+  const [appMessage, setAppMessage] = useState('')
+  const [appError, setAppError] = useState('')
+  const [appSubmitting, setAppSubmitting] = useState(false)
+
+  const handleApply = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setAppError('')
+    if (!appName.trim() || !appEmail.trim() || !appMessage.trim()) {
+      setAppError('All fields are required'); return
+    }
+    setAppSubmitting(true)
+    const { error } = await supabase.from('applications').insert({
+      name: appName.trim(),
+      email: appEmail.trim(),
+      message: appMessage.trim(),
+      job_title: currentJob?.title || '',
+      job_type: currentJob?.type || '',
+    })
+    setAppSubmitting(false)
+    if (error) { setAppError(error.message); return }
+    setApplied(true)
+  }
 
   const handleRoleSelect = (role: Role) => {
     setCurrentRole(role)
@@ -398,12 +426,29 @@ export default function Hiring() {
                     </ul>
                   </div>
                 </div>
-                <a 
-                  href={`mailto:careers@mixtecorporation.com?subject=${encodeURIComponent(currentJob.title)} Application`} 
-                  className="apply-button"
-                >
-                  Apply Now →
-                </a>
+                {applied ? (
+                  <div className="apply-success">
+                    <h5>Application Sent!</h5>
+                    <p>We'll review your application and get back to you.</p>
+                  </div>
+                ) : applying ? (
+                  <form className="apply-form" onSubmit={handleApply}>
+                    <input type="text" placeholder="Your name" value={appName} onChange={(e) => setAppName(e.target.value)} required />
+                    <input type="email" placeholder="your@email.com" value={appEmail} onChange={(e) => setAppEmail(e.target.value)} required />
+                    <textarea placeholder="Why are you a good fit?" value={appMessage} onChange={(e) => setAppMessage(e.target.value)} required />
+                    {appError && <p className="settings-error">{appError}</p>}
+                    <div className="apply-form-actions">
+                      <button type="submit" className="apply-button" disabled={appSubmitting}>
+                        {appSubmitting ? 'Sending...' : 'Send Application'}
+                      </button>
+                      <button type="button" className="back-btn" onClick={() => { setApplying(false); setAppError('') }}>Cancel</button>
+                    </div>
+                  </form>
+                ) : (
+                  <button className="apply-button" onClick={() => setApplying(true)}>
+                    Apply Now →
+                  </button>
+                )}
               </div>
             )}
             <button className="back-btn" onClick={goBackToTech}>← Back</button>
@@ -416,7 +461,7 @@ export default function Hiring() {
             We're always interested in meeting talented people. Send us your portfolio 
             and tell us how you can contribute to our mission.
           </p>
-          <a href="mailto:careers@mixtecorporation.com" className="contact-email">careers@mixtecorporation.com</a>
+          <a href="mailto:mixtecorporation@gmail.com" className="contact-email">mixtecorporation@gmail.com</a>
         </div>
       </div>
     </section>

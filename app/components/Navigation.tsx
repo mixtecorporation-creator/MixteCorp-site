@@ -2,10 +2,14 @@
 
 import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
+import { useAuth } from '@/contexts/AuthContext'
+import UserMenu from './UserMenu'
+import ThemeToggle from './ThemeToggle'
 
 const navItems = [
   { href: '#apps', label: 'Apps' },
   { href: '#about', label: 'About' },
+  { href: '#team', label: 'Team' },
   { href: '#contact', label: 'Contact' },
   { href: '#hiring', label: 'Hiring' },
 ]
@@ -13,6 +17,7 @@ const navItems = [
 export default function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const { user, loading } = useAuth()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,6 +62,10 @@ export default function Navigation() {
         </ul>
 
         <div className="nav-actions">
+          <ThemeToggle />
+          {!loading && (
+            user ? <UserMenu /> : <Link href="/auth" className="nav-signin-btn">Sign In</Link>
+          )}
           <button 
             className={`hamburger ${mobileMenuOpen ? 'active' : ''}`} 
             onClick={toggleMobileMenu}
@@ -84,6 +93,13 @@ export default function Navigation() {
                 <Link href={item.href} onClick={closeMobileMenu}>{item.label}</Link>
               </li>
             ))}
+            <li className="nav-mobile-divider" />
+            <li><Link href="/blog" onClick={closeMobileMenu}>Blog</Link></li>
+            <li><Link href="/changelog" onClick={closeMobileMenu}>Changelog</Link></li>
+            <li><Link href="/feedback" onClick={closeMobileMenu}>Feedback</Link></li>
+            <li className="nav-mobile-divider" />
+            <li><Link href="/privacy" onClick={closeMobileMenu}>Privacy</Link></li>
+            <li><Link href="/terms" onClick={closeMobileMenu}>Terms</Link></li>
           </ul>
           <div className="nav-links-footer">
             <a href="mailto:mixtecorporation@gmail.com" className="nav-email-link">
