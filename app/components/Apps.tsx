@@ -1,5 +1,7 @@
 'use client'
 
+import { useAuth } from '@/contexts/AuthContext'
+
 const apps = [
   {
     name: 'RoleChat',
@@ -18,6 +20,8 @@ const apps = [
 ]
 
 export default function Apps() {
+  const { user, loading } = useAuth()
+
   return (
     <section id="apps" className="section">
       <div className="section-header animate-on-scroll">
@@ -42,9 +46,21 @@ export default function Apps() {
             </div>
             <h3 className="app-name">{app.name}</h3>
             <p className="app-description">{app.description}</p>
-            <a href={app.link} className="app-link" target="_blank" rel="noopener noreferrer">
-              {app.name === 'RoleChat' ? 'Download APK →' : 'Get Notified →'}
-            </a>
+            {app.name === 'RoleChat' && !loading ? (
+              user ? (
+                <a href={app.link} className="app-link" target="_blank" rel="noopener noreferrer">
+                  Download APK →
+                </a>
+              ) : (
+                <a href="/auth" className="app-link">
+                  Sign in to Download →
+                </a>
+              )
+            ) : (
+              <a href={app.link} className="app-link" target="_blank" rel="noopener noreferrer">
+                Get Notified →
+              </a>
+            )}
           </div>
         ))}
       </div>
