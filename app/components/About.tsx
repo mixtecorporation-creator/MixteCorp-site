@@ -15,8 +15,7 @@ export default function About() {
         <div className="about-text animate-on-scroll">
           <h3>Who We Are</h3>
           <p>
-            Mixte Corporation is more than just a technology company. We&apos;re a collective of 
-            designers, developers, and dreamers who believe that great software 
+            Mixte Corporation is more than just a technology company. We&apos;re dreamers who believe that great software 
             should be both powerful and beautiful.
           </p>
           <p>

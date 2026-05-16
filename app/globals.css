@@ -1312,9 +1312,23 @@ body {
   background: var(--glass-bg);
   border-radius: 12px;
   font-size: 1rem;
+  color: var(--text-secondary); /* Set default link color */
+  text-decoration: none;
+  transition: all 0.3s ease;
   text-transform: none;
   letter-spacing: 0;
 }
+
+.nav-links-list a:hover {
+  background: var(--accent-subtle); /* Hover background */
+  color: var(--text-primary); /* Hover text color */
+}
+
+.nav-links-list a.active {
+  color: var(--text-primary);
+  background: var(--accent-primary);
+}
+
 
 .nav-links-footer {
   padding: 20px;
@@ -3272,7 +3286,6 @@ html {
   height: 1px;
   background: var(--glass-border);
   margin: 8px 24px;
-  list-style: none;
 }
 
 /* ── Responsive ── */
