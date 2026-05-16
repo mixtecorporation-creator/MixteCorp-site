@@ -74,16 +74,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const signInWithGoogle = async () => {
+    const redirectTo = process.env.NODE_ENV === 'production' 
+      ? `${window.location.origin}/auth/callback` 
+      : `${window.location.origin}/auth/callback`
+    
     await supabase.auth.signInWithOAuth({
       provider: 'google',
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
+      options: { redirectTo },
     })
   }
 
   const signInWithGithub = async () => {
+    const redirectTo = process.env.NODE_ENV === 'production' 
+      ? `${window.location.origin}/auth/callback` 
+      : `${window.location.origin}/auth/callback`
+
     await supabase.auth.signInWithOAuth({
       provider: 'github',
-      options: { redirectTo: `${window.location.origin}/auth/callback` },
+      options: { redirectTo },
     })
   }
 
